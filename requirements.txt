@@ -1,0 +1,12 @@
+Flask
+PyPDF2
+tqdm
+openai
+sqlalchemy
+Flask-SQLAlchemy
+Flask-Bcrypt
+langchain
+tiktoken
+faiss-gpu
+reportlab
+requests
