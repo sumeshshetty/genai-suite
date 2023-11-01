@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MCQ Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .loader {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        progress {
+            display: block;
+            width: 100%;
+            height: 20px;
+        }
+
+        .output {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .filename {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="showLoader()">
+        <label for="pdf">Upload Book PDF:</label><br>
+        <input type="file" name="pdf" id="pdf"><br><br>
+        <input type="submit" name="action" value="Extract Payslip Info">
+    </form>
+    <div class="loader">
+        <progress value="0" max="100"></progress>
+        <div class="stage">Analyzing Book</div>
+    </div>
+    <div class="filename"></div>
+    <pre class="output">{{ output_data|safe }}</pre>
+
+    <script>
+        function showLoader() {
+            document.querySelector('.loader').style.display = 'block';
+
+            var inputFile = document.getElementById('pdf');
+            var fileName = inputFile.files[0].name;
+
+            var filenameDiv = document.querySelector('.filename');
+            filenameDiv.textContent = 'Selected file: ' + fileName;
+            filenameDiv.style.display = 'block';
+
+            var progress = document.querySelector('progress');
+            var stage = document.querySelector('.stage');
+
+            // Update the progress bar and stage text for the "Analyzing Payslip" stage
+            setTimeout(function() {
+                progress.value = 33;
+                stage.textContent = 'Feature Extraction';
+
+                // Update the progress bar and stage text for the "Feature Extraction" stage
+                setTimeout(function() {
+                    progress.value = 66;
+                    stage.textContent = 'Generating Insights';
+
+                    // Update the progress bar and stage text for the "Generating Insights" stage
+                    setTimeout(function() {
+                        progress.value = 100;
+                        stage.textContent = 'Processing Complete';
+
+                        // Hide the loader and display the results after a delay
+                        setTimeout(function() {
+                            document.querySelector('.loader').style.display = 'none';
+                            // You can add code here to display the results
+                        }, 300);
+                    }, 300);
+                }, 300);
+            }, 300);
+        }
+    </script>
+
+</body>
+</html>

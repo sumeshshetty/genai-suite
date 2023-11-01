@@ -1,0 +1,13 @@
+{
+   "apps":[
+      {
+         "name":"Gen AI Api",
+         "script":"app.py",
+         "cron_restart":"0 9 * * *",
+         "autorestart":false,
+         "instances":1,
+         "interpreter":"python3",
+         "watch":true
+      }
+   ]
+}

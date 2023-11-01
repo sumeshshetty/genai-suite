@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Upload</title>
+</head>
+<body>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="pdf">Upload PDF:</label><br>
+        <input type="file" name="pdf" id="pdf"><br><br>
+        <input type="submit" name="action" value="Extract Payslip Info">
+        
+        
+    </form>
+    <pre>{{ output_data|safe }}</pre>
+
+</body>
+</html>
