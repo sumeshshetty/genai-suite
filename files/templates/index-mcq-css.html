@@ -68,14 +68,33 @@
             border-radius: 5px;
             color: #007bff;
         }
+        .dashboard-button-container {
+        text-align: center;
+        margin-top: 20px;
+        }
+
+        button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+        background-color: #2980b9;
+        }
     </style>
 </head>
 <body>
 
-    <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="showLoader()">
+    <form action="/upload-mcq" method="post" enctype="multipart/form-data" onsubmit="showLoader()">
         <label for="pdf">Upload Book PDF:</label><br>
         <input type="file" name="pdf" id="pdf"><br><br>
-        <input type="submit" name="action" value="Extract Payslip Info">
+        <input type="submit" name="action" value="Extract MCQ's">
     </form>
     <div class="loader">
         <progress value="0" max="100"></progress>
@@ -83,6 +102,10 @@
     </div>
     <div class="filename"></div>
     <pre class="output">{{ output_data|safe }}</pre>
+
+    <div class="dashboard-button-container">
+        <button onclick="window.location.href='/dashboard'">Go to Dashboard</button>
+    </div>
 
     <script>
         function showLoader() {

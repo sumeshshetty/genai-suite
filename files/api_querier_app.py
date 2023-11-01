@@ -125,7 +125,7 @@ def process_file_content(book_question_email):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index-api.html')
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -137,7 +137,7 @@ def upload_file():
     
     file_data= (file.read())
     api_configs = process_file_content(file_data)
-    return render_template('index.html', output_data=api_configs)
+    return render_template('index-api.html', output_data=api_configs)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

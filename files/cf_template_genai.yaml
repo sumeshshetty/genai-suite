@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: EC2 instance with security group and user data
+
+Resources:
+  MySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: My Security Group
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '5001'
+          ToPort: '5001'
+          CidrIp: 0.0.0.0/0
+
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: genai-kp-v1
+      SecurityGroups:
+        - Ref: MySecurityGroup
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          sudo yum update -y
+          sudo yum install git -y
+          git clone https://github.com/sumeshshetty/genai-suite.git
+          cd genai-suite
+          python3 -m venv venv
+          source venv/bin/activate
+          pip3 install -r requirements.txt 
+          pip3 install langchain
+          pip3 install tiktoken
+          pip3 install faiss-gpu
+          pip3 install reportlab
+          pip3 install requests
+
+          sudo yum update -y
+          sudo yum install -y gcc gcc-c++ make openssl-devel git
+          curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
+          sudo yum install -y nodejs
+          sudo npm install pm2@latest -g
+
+          pm2 start pm2_config.json
+      ImageId: ami-05c0f5389589545b7
